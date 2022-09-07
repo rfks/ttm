@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "679715313540",
+    "project_id": "rfks-ttm",
+    "storage_bucket": "rfks-ttm.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:679715313540:android:2b1c8acc4adde7ea0a6fd1",
+        "android_client_info": {
+          "package_name": "com.example.ttm"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "679715313540-le89lf7u59a50dvkj6j0c9ffj84cvsq1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDCo_MkBHqBFT_3Ghqr-nNRFOs3iXid0fM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "679715313540-le89lf7u59a50dvkj6j0c9ffj84cvsq1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
