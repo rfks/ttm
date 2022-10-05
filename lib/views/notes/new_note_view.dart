@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:ttm/services/auth/auth_service.dart';
 import 'package:ttm/services/crud/notes_service.dart';
@@ -88,10 +86,10 @@ class _NewNoteViewState extends State<NewNoteView> {
         builder: (context, snapshot) {
           switch (snapshot.connectionState) {
             case ConnectionState.done:
-              _note = snapshot.data as DatabaseNote;
+              _note = snapshot.data; // as DatabaseNote?;
               _setupTextControllerListener();
               return TextField(
-                controller: _textController,,
+                controller: _textController,
                 keyboardType: TextInputType.multiline,
                 maxLines: null,
                 decoration: const InputDecoration(
