@@ -6,6 +6,9 @@ import 'package:ttm/utilities/generics/get_arguments.dart';
 import 'package:ttm/services/cloud/cloud_note.dart';
 import 'package:ttm/services/cloud/cloud_storage_exceptions.dart';
 import 'package:ttm/services/cloud/firebase_cloud_storage.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:flutter_sound/flutter_sound.dart';
+import 'dart:io';
 
 class CreateUpdateNoteView extends StatefulWidget {
   const CreateUpdateNoteView({super.key});
@@ -19,11 +22,43 @@ class _CreateUpdateNoteViewState extends State<CreateUpdateNoteView> {
   late final FirebaseCloudStorage _notesService;
   late final TextEditingController _textController;
 
+  final recorder = FlutterSoundRecorder();
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   initRecorder();
+  // }
+
+  // @override
+  // void dispose() {
+  //   recorder.closeRecorder();
+  //   super.dispose();
+  // }
+
+  Future initRecorder() async {
+    final status = await Permission.microphone.request();
+    if (status != PermissionStatus.granted) {
+      throw 'Microphone permission not granted';
+    }
+    await recorder.openRecorder();
+  }
+
+  Future record() async {
+    await recorder.startRecorder(toFile: 'audio');
+  }
+
+  Future stop() async {
+    final path = await recorder.stopRecorder();
+    final audioFile = File(path!);
+    print('Recorded audio: $audioFile');
+  }
+
   @override
   void initState() {
     _notesService = FirebaseCloudStorage();
     _textController = TextEditingController();
     super.initState();
+    initRecorder();
   }
 
   void _textControllerListener() async {
@@ -85,6 +120,7 @@ class _CreateUpdateNoteViewState extends State<CreateUpdateNoteView> {
     _deleteNoteIfTextIsEmpty();
     _saveNoteIfTextNotEmpty();
     _textController.dispose();
+    recorder.closeRecorder();
     super.dispose();
   }
 
@@ -129,3 +165,21 @@ class _CreateUpdateNoteViewState extends State<CreateUpdateNoteView> {
     );
   }
 }
+
+
+
+/*ElevatedButton(
+              child: Icon(
+                recorder.isRecording ? Icons.stop : Icons.mic,
+                size: 40,
+              ),
+              onPressed: () async {
+                initRecorder();
+                if (recorder.isRecording) {
+                  await stop();
+                } else {
+                  await record();
+                }
+                // setState(() {});
+              },
+            )*/
